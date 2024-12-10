@@ -1,0 +1,2 @@
+!function(){var o={};Object.defineProperty(o,"__esModule",{value:!0}),o.default=function(o){throw o},console.log("Іменований експорт: export 01-test");var e=555..d;console.log("Дефолтний експорт: export default 02-test");var l={mult:function(o,e){return o*e},div:function(o,e){return o/e}};console.log("My index.js"),console.log("Іменований експорт: export default index"),console.log(e),console.log("Дефолтний експорт: export default index"),console.log(l.mult(5,4)),console.log(l.div(100,4));document.querySelector(".js-search")}();
+//# sourceMappingURL=index.ccbd38be.js.map
