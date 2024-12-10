@@ -1,2 +1,0 @@
-console.log("Іменований експорт: export 01-test");const{d:o}=555;console.log("Дефолтний експорт: export default 02-test");var e={mult:function(o,e){return o*e},div:function(o,e){return o/e}};console.log("My index.js"),console.log("Іменований експорт: export default index"),console.log(o),console.log("Дефолтний експорт: export default index"),console.log(e.mult(5,4)),console.log(e.div(100,4));document.querySelector(".js-search");
-//# sourceMappingURL=index.30280b03.js.map
