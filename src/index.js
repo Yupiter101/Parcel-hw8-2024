@@ -39,78 +39,155 @@ console.log(myval.mult(5,4)); // 20
 console.log(myval.div(100,4)); // 25
 
 
+
+
+// =======================================================================
+
 // Проект локалстореж з Рисічем
 
-const instruments = [
-    {
-        id: 1,
-        img: "https://i.pinimg.com/originals/24/15/21/24152197af38deb718eb730992d441d0.webp",
-        name: "Шуруповерт",
-        price: 1500,
-        description: "Lorem, ipsum dolor Vero, quas?"
-    },
-    {
-        id: 2,
-        img: "https://bannerplus.ru/files/img/pics/devushka-krasivye-kartinki/devushka-krasivye-kartinki-2.webp",
-        name: "Перфоратор",
-        price: 3948,
-        description: "Lorem,  dolor Vero, quas?"
-    },
-    {
-        id: 3,
-        img: "https://i.pinimg.com/originals/5b/6e/ca/5b6eca63605bea0eeb48db43f77fa0ce.jpg",
-        name: "Шліфмашина",
-        price: 1299,
-        description: "Lorem, ipsum dolor dolor dolor Vero, quas?"
-    },
-    {
-        id: 4,
-        img: "https://s00.yaplakal.com/pics/pics_original/5/0/6/17827605.jpg",
-        name: "Пилка",
-        price: 3000,
-        description: "Lorem,  dolor Vero, q"
-    },
-];
+import { common } from './js/comon';
+import { createMarkup } from './helpers/markup';
+import { createModal } from './helpers/modal';
+import { instruments } from './helpers/instruments';
+
+// const instruments = [
+//     {
+//         id: 1,
+//         img: "https://i.pinimg.com/originals/24/15/21/24152197af38deb718eb730992d441d0.webp",
+//         name: "Шуруповерт",
+//         price: 1500,
+//         description: "Lorem, ipsum dolor Vero, quas?"
+//     },
+//     {
+//         id: 2,
+//         img: "https://bannerplus.ru/files/img/pics/devushka-krasivye-kartinki/devushka-krasivye-kartinki-2.webp",
+//         name: "Перфоратор",
+//         price: 3948,
+//         description: "Lorem,  dolor Vero, quas?"
+//     },
+//     {
+//         id: 3,
+//         img: "https://i.pinimg.com/originals/5b/6e/ca/5b6eca63605bea0eeb48db43f77fa0ce.jpg",
+//         name: "Шліфмашина",
+//         price: 1299,
+//         description: "Lorem, ipsum dolor dolor dolor Vero, quas?"
+//     },
+//     {
+//         id: 4,
+//         img: "https://s00.yaplakal.com/pics/pics_original/5/0/6/17827605.jpg",
+//         name: "Пилка",
+//         price: 3000,
+//         description: "Lorem,  dolor Vero, q"
+//     },
+// ];
+
+
 
 const search = document.querySelector(".js-search");
 const list = document.querySelector(".js-list");
-// console.log(list);
+const favoriteArr = JSON.parse(localStorage.getItem(common.KEY_FAVORITE)) ?? [];
+const basketArr = JSON.parse(localStorage.getItem(common.KEY_BASKET)) ?? [];
 
-function createMarkup (arr) {
-    const markup = arr.map(({ id, img, name })=> `
-        <li data-id="${id}" class="js-card">
-          <h2>${name}</h2>
-          <img src="${img}" alt="${name}" width="240">
-          <p><a href="#" class="js-info">More information</a></p>
-          <div>
-            <button type="button">Add to favorit</button>
-            <button type="button">Add to basket</button>
-          </div>
-        </li>
-    `).join("");
+// HELPERS
+// function createMarkup (arr) {
+//     const markup = arr.map(({ id, img, name })=> `
+//         <li data-id="${id}" class="js-card">
+//           <h2>${name}</h2>
+//           <img src="${img}" alt="${name}" width="120">
+//           <p><a href="#" class="js-info">More information</a></p>
+//           <div>
+//             <button class="js-favorite" type="button">Add to favorite</button>
+//             <button class="js-basket" type="button">Add to basket</button>
+//           </div>
+//         </li>
+//     `).join("");
 
-    // list.insertAdjacentHTML(, markup);
-    list.innerHTML = markup;
-}
+//     list.innerHTML = markup;
+// }
+
+createMarkup(instruments, list);
 
 
 list.addEventListener("click", onClick);
 
+
+// function onClick(event) {
+//     event.preventDefault();
+//     if(event.target.classList.contains("js-info")) {
+//         const { id } = event.target.closest(".js-card").dataset; // Найближчий батько з класом .js-card
+//         const product = findProduct(Number(id));
+//         const instance = basicLightbox.create(`
+//         <div class="modal-hw8">
+//             <img src="${product.img}" alt="${product.name}" width="240">
+//             <h2>${product.name}</h2>
+//             <h3>${product.price} грн</h3>
+//             <p>${product.description}</p>
+//             <div>
+//             <button class="js-favorite" type="button">Add to favorite</button>
+//             <button class="js-basket" type="button">Add to basket</button>
+//             </div>
+//         </div>
+//       `);
+//       instance.show();
+//     }
+// }
+
+
+// function findProduct (prodId) {
+//     return instruments.find(({ id }) => id === prodId); 
+// }
+
+
+
 function onClick(event) {
     event.preventDefault();
     if(event.target.classList.contains("js-info")) {
-        const { id } = event.target.closest(".js-card").dataset; // Найближчий батько з класом .js-card
-        const product = findProduct(Number(id));
-        const instance = basicLightbox.create(`
-        <h1>Dynamic Content</h1>
-        <p>You can set the content</p>
-      `);
-      instance.show();
+        const product = findProduct(event.target);
+    //     const instance = basicLightbox.create(`
+    //     <div class="modal-hw8">
+    //         <img src="${product.img}" alt="${product.name}" width="240">
+    //         <h2>${product.name}</h2>
+    //         <h3>${product.price} грн</h3>
+    //         <p>${product.description}</p>
+    //         <div>
+    //         <button class="js-favorite" type="button">Add to favorite</button>
+    //         <button class="js-basket" type="button">Add to basket</button>
+    //         </div>
+    //     </div>
+    //   `);
+    //   instance.show();
+    createModal(product);
+    }
+
+
+
+    if(event.target.classList.contains("js-basket")) {
+        const product = findProduct(event.target);
+        // const isStorage = basketArr.some(({id})=> id === product.id );
+        // if(isStorage) {
+        //     return;
+        // }
+        basketArr.push(product);
+        localStorage.setItem(common.KEY_BASKET, JSON.stringify(basketArr));
+    }
+
+    if(event.target.classList.contains("js-favorite")) {
+        const product = findProduct(event.target);
+        // Перевірка на дубляж
+        const inStorage = favoriteArr.some(({id})=> id === product.id); // true false
+        if(inStorage) {
+            return;
+        }
+        favoriteArr.push(product);
+        localStorage.setItem(common.KEY_FAVORITE, JSON.stringify(favoriteArr));
+        // console.log(favoriteArr);
     }
 }
 
-createMarkup(instruments);
 
-function findProduct (prodId) {
-    return instruments.find(({ id }) => id === prodId);
+function findProduct (elem) {
+    const prodId = Number(elem.closest(".js-card").dataset.id);
+    return instruments.find(({ id }) => id === prodId); 
 }
+
+
