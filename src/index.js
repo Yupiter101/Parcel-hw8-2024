@@ -1,39 +1,35 @@
-console.log("My index.js");
+console.log("My index_xx.js");
 
-import * as basicLightbox from 'basiclightbox';
-// import 'src/styles/main';
-import "basiclightbox/dist/basicLightbox.min.css";
+// ========== Require експорт:  ===========
 
+console.log("require імпорт з export.js");
+const expRequire = require("./js/export.js");
+console.log(expRequire);
 
-// іменований експорт "export {add, sub};"
-// дефолтний експорт "export default {add, sub};" Лише один. Рідко використовують
+// ========== Іменований експорт:  ===========
 
+// console.log("Іменований імпорт from 01-test");
 
-
-// ========== Іменований експорт: export default ===========
-
-console.log("Іменований експорт: export default index");
-import {d} from './js/01-test';
-console.log(d); // 555
-
-
-
-
-// import {add} from './js/01-test';
-// import * as data from './js/01-test';
-
-// function add(a, b) {
-//     return a+b;
-// }
-
+// // Це працює і Це теж працює
+// import {d, add, sub} from './js/01-test';
+// console.log(d); // 555
 // console.log(`Summ a+b=${add(3, 7)}`);
-// console.log(`Summ a+b=${data.add(3, 7)}`);
+// console.log(`Sub a-b=${sub(10, 6)}`);
+
+// Це теж працює
+console.log("Іменований імпорт * as qwe from 01-test");
+
+import * as qwe from "./js/01-test";
+console.log(qwe.d); // 555
+console.log(`Summ a+b=${qwe.add(3, 7)}`);
+console.log(`Sub a-b=${qwe.sub(10, 6)}`);
 
 
 
-// ========== Дефолтний експорт: export default ===========
+// ========== Дефолтний експорт:  ===========
 
-console.log("Дефолтний експорт: export default index");
+console.log("Дефолтний імпорт: from 02-test");
+
 import myval from './js/02-test';
 console.log(myval.mult(5,4)); // 20
 console.log(myval.div(100,4)); // 25
@@ -41,9 +37,17 @@ console.log(myval.div(100,4)); // 25
 
 
 
+
+
 // =======================================================================
 
 // Проект локалстореж з Рисічем
+console.log("Проект локалстореж з Рисічем");
+
+import * as basicLightbox from 'basiclightbox';
+// import 'src/styles/main';
+import "basiclightbox/dist/basicLightbox.min.css";
+
 
 import { common } from './js/comon';
 import { createMarkup } from './helpers/markup';

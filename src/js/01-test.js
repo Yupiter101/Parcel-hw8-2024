@@ -1,11 +1,9 @@
 
-console.log("Іменований експорт: export 01-test");
-
-// import { galleryItms } from './galery-item';
-
-export const {d} = 555;
+console.log("Іменований експорт (основний): 01-test");
 
 
+// // Це працює
+// export const d = 555;
 
 // export function add(a, b) {
 //     return a+b;
@@ -16,4 +14,16 @@ export const {d} = 555;
 // }
 
 
-// export {add, sub};
+
+// Це теж працює
+const d = 555;
+
+function add(a, b) {
+    return a+b;
+}
+
+function sub(a, b) {
+    return a-b;
+}
+
+export {d, add, sub};
